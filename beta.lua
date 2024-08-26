@@ -1,7 +1,7 @@
 local Update = loadstring(Game:HttpGet "https://roblox.relzscript.xyz/source/relzhub/library/pc.lua")()
 local Alert = loadstring(Game:HttpGet "https://roblox.relzscript.xyz/source/relzhub/library/alert.lua")()
 local Library = Update:Window("Blox Fruits")
-local Main = Library:Tab("Main", "rbxassetid://10723407389")
+local Main = Library:Tab("Main Farm", "rbxassetid://10723407389")
 local Set = Library:Tab("Setting", "rbxassetid://10734950309")
 local Hold = Library:Tab("Hold Skill", "rbxassetid://10734984606")
 local M = Library:Tab("Items", "rbxassetid://10709769841")
@@ -15,7 +15,7 @@ local T = Library:Tab("Teleport", "rbxassetid://10723434557")
 local S = Library:Tab("Shop", "rbxassetid://10734952479")
 local D = Library:Tab("Devil Fruit", "rbxassetid://10709761889")
 local Misc = Library:Tab("Misc", "rbxassetid://10723424838")
-local Serv = Library:Tab("Serv", "rbxassetid://10723426722")
+local Serv = Library:Tab("Server", "rbxassetid://10723426722")
 
 if game.PlaceId == 2753915549 then
     World1 = true
@@ -632,13 +632,13 @@ function CheckQuest()
             NameMon = "Island Boy"
             CFrameQuest = CFrame.new(-16547.748046875, 61.13533401489258, -173.41360473632812)
             CFrameMon = CFrame.new(-16901.26171875, 84.06756591796875, -192.88906860351562)
-        -- elseif MyLevel == 2500 or MyLevel <= 2524 then
-        --     Mon = "Sun-kissed Warrior"
-        --     LevelQuest = 1
-        --     NameQuest = "TikiQuest2"
-        --     NameMon = "Sun-kissed Warrior"
-        --     CFrameQuest = CFrame.new(-16539.078125, 55.68632888793945, 1051.5738525390625)
-        --     CFrameMon = CFrame.new(-16349.8779296875, 92.0808334350586, 1123.4169921875)
+        elseif MyLevel == 2500 or MyLevel <= 2524 then
+            Mon = "Sun-kissed Warrior"
+            LevelQuest = 1
+            NameQuest = "TikiQuest2"
+            NameMon = "Sun-kissed Warrior"
+            CFrameQuest = CFrame.new(-16539.078125, 55.68632888793945, 1051.5738525390625)
+            CFrameMon = CFrame.new(-16349.8779296875, 92.0808334350586, 1123.4169921875)
         elseif MyLevel == 2525 or MyLevel <= 2550 then
             Mon = "Isle Champion"
             LevelQuest = 2
@@ -3160,6 +3160,50 @@ spawn(function()
     end
 end)
 
+Main:Seperator("Rip_Indra")
+
+Main:Toggle("Auto Kill Rip_Indra", _G.AutoDarkDagger, false, function(value)
+    _G.AutoDarkDagger = value
+    StopTween(_G.AutoDarkDagger)
+end)
+
+local AdminPos = CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781)
+spawn(function()
+    pcall(function()
+        while wait() do
+            if _G.AutoDarkDagger then
+                if game:GetService("Workspace").Enemies:FindFirstChild("rip_indra True Form") or game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") then
+                    for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                        if v.Name == ("rip_indra True Form" or v.Name == "rip_indra") and v.Humanoid.Health > 0 and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
+                            repeat task.wait(_G.FastAttackDelay)
+                                pcall(function()
+                                    AutoHaki()
+                                    EquipWeapon(_G.SelectWeapon)
+                                    v.HumanoidRootPart.CanCollide = false
+                                    v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                    topos(v.HumanoidRootPart.CFrame * Pos)
+                                    AttackNoCD()
+                                end)
+                            until _G.AutoDarkDagger == false or v.Humanoid.Health <= 0
+                        end
+                    end
+                else
+                    if BypassTP then
+                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - AdminPos.Position).Magnitude > 1500 then
+                            BTP(AdminPos)
+                        elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - AdminPos.Position).Magnitude < 1500 then
+                            topos(AdminPos)
+                        end
+                    else
+                        topos(AdminPos)
+                    end
+                    UnEquipWeapon(_G.SelectWeapon)
+                    topos(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
+                end
+            end
+        end
+    end)
+end)
 
 Main:Seperator("Cake Farm")
 
@@ -3239,6 +3283,13 @@ spawn(function()
     end
 end)
 
+spawn(function()
+    while wait() do
+        if _G.AutoSpawnCP then
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner", true)
+        end
+    end
+end)
 Main:Toggle("Auto Spawn Cake Prince", _G.AutoSpawnCP, false, function(value)
     _G.AutoSpawnCP = value
 end)
@@ -3888,18 +3939,18 @@ elseif World3 then
         pcall(function()
             while wait() do
                 if game.Workspace._WorldOrigin.Locations:FindFirstChild('Mirage Island') then
-                    Mirragecheck:Set('ðŸï¸ Mirage Island is Spawning')
+                    Mirragecheck:Set('Mirage Island is Spawning')
                     _G.MirageSpawn = true
                 else
-                    Mirragecheck:Set('ðŸï¸ Mirage Island Not Spawn')
+                    Mirragecheck:Set('Mirage Island Not Spawn')
                     _G.MirageSpawn = false
                 end
                 
                 if game.Workspace._WorldOrigin.Locations:FindFirstChild('Kitsune Island') then
-                    Kitsunecheck:Set('â›©ï¸ Kitsune Island is Spawning')
+                    Kitsunecheck:Set('Kitsune Island is Spawning')
                     _G.KitsuneSpawn = true
                 else
-                    Kitsunecheck:Set('â›©ï¸ Kitsune Island Not Spawn')
+                    Kitsunecheck:Set('Kitsune Island Not Spawn')
                     _G.KitsuneSpawn = false
                 end
             end
@@ -7027,7 +7078,7 @@ Sea:Toggle("Use Skill Gun", true, "Use Gun Skill", function(value)
     _G.UseSeaGunSkill = value
 end)
 
-Sea:Label("[ Skill Fruit ]")
+Sea:Label("Skill Fruit")
 Sea:Toggle("Skill Z", true, "Auto Skill Z", function(value)
     _G.SkillFruitZ = value
 end)
@@ -7044,7 +7095,7 @@ Sea:Toggle("Skill F", _G.SkillFruitF, "Auto Skill F", function(value)
     _G.SkillFruitF = value
 end)
 
-Sea:Label("[ Skill Melee ]")
+Sea:Label("Skill Melee")
 Sea:Toggle("Skill Z", true, "Auto Skill Z", function(value)
     _G.SkillMeleeZ = value
 end)
@@ -7058,7 +7109,7 @@ Sea:Toggle("Skill V", _G.SkillMeleeV, "Auto Skill V", function(value)
     _G.SkillMeleeV = value
 end)
 
-Sea:Label("[ Skill Sword & Gun ]")
+Sea:Label("Skill Sword & Gun")
 Sea:Toggle("Skill Z", true, "Auto Skill Z", function(value)
     _G.SkillSwordZ = value
     _G.SkillGunZ = value
@@ -8463,7 +8514,7 @@ end
 if World3 then
     RaceV4:Seperator("Race V2")
     
-    RaceV4:Toggle("Auto Evo Race [ V2 ]", _G.Auto_EvoRace, false, function(value)
+    RaceV4:Toggle("Auto Evo Race V2", _G.Auto_EvoRace, false, function(value)
         _G.Auto_EvoRace = value
         StopTween(_G.Auto_EvoRace)
     end)
@@ -9249,15 +9300,15 @@ spawn(function()
     pcall(function()
         while wait() do
             if game.Workspace._WorldOrigin.Locations:FindFirstChild('Island 5') then
-                Island:Set('ðŸï¸ Island 5')
+                Island:Set('Island 5')
             elseif game.Workspace._WorldOrigin.Locations:FindFirstChild('Island 4') then
-                Island:Set('ðŸï¸ Island 4')
+                Island:Set('Island 4')
             elseif game.Workspace._WorldOrigin.Locations:FindFirstChild('Island 3') then
-                Island:Set('ðŸï¸ Island 3')
+                Island:Set('Island 3')
             elseif game.Workspace._WorldOrigin.Locations:FindFirstChild('Island 2') then
-                Island:Set('ðŸï¸ Island 2')
+                Island:Set('Island 2')
             elseif game.Workspace._WorldOrigin.Locations:FindFirstChild('Island 1') then
-                Island:Set('ðŸï¸ Island 1')
+                Island:Set('Island 1')
             else
                 Island:Set("Start Dungeon")
             end
@@ -10857,15 +10908,15 @@ spawn(function()
     pcall(function()
         while wait() do
             if game.Workspace._WorldOrigin.Locations:FindFirstChild('Mirage Island') then
-                MirageStatus:Set('ðŸï¸ Mirage Island is Spawning')
+                MirageStatus:Set('Mirage Island is Spawning')
             else
-                MirageStatus:Set('ðŸï¸ Mirage Island Not Spawn')
+                MirageStatus:Set('Mirage Island Not Spawn')
             end
             
             if game.Workspace._WorldOrigin.Locations:FindFirstChild('Kitsune Island') then
-                KitsuneStatus:Set('â›©ï¸ Kitsune Island is Spawning')
+                KitsuneStatus:Set('Kitsune Island is Spawning')
             else
-                KitsuneStatus:Set('â›©ï¸ Kitsune Island Not Spawn')
+                KitsuneStatus:Set('Kitsune Island Not Spawn')
             end
             
             for i, v in pairs(game.Workspace:GetChildren()) do
@@ -10883,13 +10934,13 @@ spawn(function()
     while wait(5) do
         pcall(function()
             if GetLegendarySwordDealer() then
-                SwordDealer:Set('âš”ï¸ Legendary Sword Dealer is Spawning')
+                SwordDealer:Set('Legendary Sword Dealer is Spawning')
             else
-                SwordDealer:Set('âš”ï¸ Legendary Sword Dealer Not Spawn')
+                SwordDealer:Set('Legendary Sword Dealer Not Spawn')
             end
             
             if game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("ColorsDealer", "1") then
-                HakiDealer:Set('ðŸŸ¢ Haki Dealer is Spawning')
+                HakiDealer:Set('Haki Dealer is Spawning')
             else
                 HakiDealer:Set('ðŸ”´ Haki Dealer Not Spawn')
             end
