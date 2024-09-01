@@ -17,6 +17,14 @@ local D = Library:Tab("Devil Fruit", "rbxassetid://10709761889")
 local Misc = Library:Tab("Misc", "rbxassetid://10723424838")
 local Serv = Library:Tab("Server", "rbxassetid://10723426722")
 
+if game.PlaceId == 2753915549 then
+    World1 = true
+elseif game.PlaceId == 4442272183 then
+    World2 = true
+elseif game.PlaceId == 7449423635 then
+    World3 = true
+end
+
 do
     repeat 
         ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("ChooseTeam",true)
@@ -27,8 +35,8 @@ do
                     if type(v) == "function" and getfenv(v).script == UIController then
                         local constant = getconstants(v)
                         pcall(function()
-                            if constant[1] == "Marines" and #constant == 1 then
-                                v(shared.Team or "Marines")
+                            if constant[1] == "Pirates" and #constant == 1 then
+                                v(shared.Team or "Pirates")
                             end
                         end)
                     end
