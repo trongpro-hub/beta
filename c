@@ -1424,29 +1424,6 @@ spawn(function()
     end)
 end)
 
-do
-    repeat 
-        ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("ChooseTeam",true)
-        UIController = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("UIController",true)
-        if UIController and ChooseTeam then
-            if ChooseTeam.Visible then
-                for i,v in pairs(getgc()) do
-                    if type(v) == "function" and getfenv(v).script == UIController then
-                        local constant = getconstants(v)
-                        pcall(function()
-                            if constant[1] == "Pirates" and #constant == 1 then
-                                v(shared.Team or "Pirates")
-                            end
-                        end)
-                    end
-                end
-            end
-        end
-        wait(1)
-    until game.Players.LocalPlayer.Team
-    repeat wait() until game.Players.LocalPlayer.Character
-end
-
 function InstancePos(pos)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
 end
